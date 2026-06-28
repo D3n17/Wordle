@@ -2,11 +2,10 @@
 
 Wordle in terminal. I am a newbie so don't judge too harshly.
 
-## Features
+## Modes
 
-- Feature 1
-- Feature 2
-- Feature 3
+- Player vs Player
+- Player vs Random word
 
 ## Requirements
 
