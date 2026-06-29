@@ -2,6 +2,7 @@
 #include <string.h>
 #include "choose_word.h"
 #include "check.h"
+#include "keyboard.h"
 
 int main(void) {
 
@@ -31,12 +32,14 @@ ASK:
     }
 
     puts("Try to guess the word! You have 6 attempts.\n");
+    printf("\n\n\n");
     char guess[32];
     int count = 6;
     while (count > 0) {
-        char color[6] = {'-', '-', '-', '-', '-', '\0'};
+        char color[6] = {'u', 'u', 'u', 'u', 'u', '\0'};
 AGAIN:
-        printf("_____\r");
+        print_keyboard(10 - count);
+        printf("\r_____\r");
         fflush(stdout);
         count--;
         scanf("%s", guess);
@@ -62,20 +65,37 @@ AGAIN:
                             color[i] = '-';
                             break;
                         }
-                    }
+                    }    
                 }
             }
         }
+        for (int i = 4; i >= 0; --i) {
+            if (color[i] == 'u') {
+                color[i] = '-';
+            }
+        }
+        for (int i = 4; i >= 0; --i) {
+            if (color[i] == 'g') {
+                states[guess[i] - 'a'] = GREEN;
+            } else if (color[i] == '-' && states[guess[i] - 'a'] != YELLOW && states[guess[i] - 'a'] != GREEN) {
+                states[guess[i] - 'a'] = GRAY;
+            } else if (color[i] == 'y' && states[guess[i] - 'a'] != GREEN) {
+                states[guess[i] - 'a'] = YELLOW;
+            }
+        }
+
+        print_keyboard(10 - count);
 
         printf("\x1b[A\r");
         for (int i = 0; i < 6; ++i) {
             if (color[i] == '-') {
-                //printf("\x1b[90m%c", guess[i]);
-                printf("%c", guess[i]);
+                printf("\x1b[90m%c", guess[i]);
             } else if (color[i] == 'y') {
                 printf("\x1b[43m%c", guess[i]);
             } else if (color[i] == 'g') {
                 printf("\x1b[42m%c", guess[i]);
+            } else if (color[i] == 'u') {
+                printf("%c", guess[i]);
             }
             printf("\x1b[0m");
         }
