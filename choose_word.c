@@ -34,5 +34,6 @@ char* random_word() {
     fseek(f, 6 * line, SEEK_SET);
     fgets(word, 6, f);
     fclose(f);
+    printf("\x1b[2J\x1b[H");
     return word;
 }

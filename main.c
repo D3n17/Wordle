@@ -58,7 +58,7 @@ AGAIN:
         }
         for (int i = 0; i < 5; ++i) {
             for (int j = 0; j < 5; ++j) {
-                if (color[i] != 'g' && guess[i] == word[j]) {
+                if (color[i] != 'g' && color[j] != 'g' && guess[i] == word[j]) {
                     color[i] = 'y';
                     for (int k = i - 1; k >= 0; --k) {
                         if (guess[k] == guess[i]) {
